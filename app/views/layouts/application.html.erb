@@ -3,12 +3,25 @@
 <head>
   <title>ReactRails</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <main class="main">
+    <div class="wrapper clearfix">
+      <aside class="wrapper__aside">
+        <nav>
+          <%= react_component('Menu', {:items => @menu_links.to_json}, {:prerender => true}) %>
+        </nav>
+        <div class="add-post">
+          <button class="add-post__button">Add Post</button>
+        </div>
+      </aside>
+      <div class="wrapper__content">
+        <%= yield %>
+      </div>      
+    </div>
+  </main>
 
-<%= yield %>
-
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 </body>
 </html>

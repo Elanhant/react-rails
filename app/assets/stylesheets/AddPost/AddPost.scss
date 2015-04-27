@@ -1,0 +1,13 @@
+@import "colors";
+
+.add-post {
+  padding-left: 40px;
+  padding-right: 40px;
+
+  &__button {
+    background-color: $light-gray;
+    padding: 8px 16px;
+    text-transform: uppercase;
+    width: 100%;
+  }
+}

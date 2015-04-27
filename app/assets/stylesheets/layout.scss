@@ -1,0 +1,26 @@
+@import "colors";
+@import "helpers";
+
+.wrapper {
+  $padding-top: 40px;
+
+  background-color: $content-bg-color; 
+  margin: 0 auto;
+  width: 1200px;
+
+  &__aside {
+    background-color: $light-gray;
+    border-left: 20px solid $light-gray * 0.8;
+    float: left;
+    height: 100vh;
+    padding-top: $padding-top;
+    width: 28%;
+  }
+
+  &__content {
+    float: right;
+    padding-top: $padding-top;
+    width: 62%;
+  }
+
+}
