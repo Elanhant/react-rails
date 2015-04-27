@@ -1,0 +1,4 @@
+<%= react_component('PostForm', {:presenter => @presenter.to_json, :isNew => false}, {:prerender => true}) %>
+
+<%= link_to 'Show', @post %> |
+<%= link_to 'Back', posts_path %>

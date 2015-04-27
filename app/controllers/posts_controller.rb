@@ -5,12 +5,7 @@ class PostsController < ApplicationController
   # GET /posts.json
   def index
     @presenter = {
-      :posts => Post.last(5),
-      :form => {
-        :action => posts_path,
-        :csrf_param => request_forgery_protection_token,
-        :csrf_token => form_authenticity_token
-      }
+      :posts => Post.last(5)
     }
   end
 
@@ -33,6 +28,14 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
+    @presenter = {
+      :form => {
+        :action => post_path(@post),
+        :csrf_param => request_forgery_protection_token,
+        :csrf_token => form_authenticity_token
+      },
+      :post => @post
+    }
   end
 
   # POST /posts

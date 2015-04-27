@@ -1,8 +1,31 @@
 var PostForm = React.createClass({
   getInitialState: function () {
-    return JSON.parse(this.props.presenter);
+    return React.addons.update(
+      {
+        post: {
+          title: '',
+          description: '',
+          content: '',
+          published: false,
+        }
+      }, 
+      {$merge: JSON.parse(this.props.presenter)}
+    );
   },
-  handleSubmit: function(event) {
+  
+
+  _handleChange: function(attr, event) {
+    newValue = {};
+    newValue[attr] = {
+      $set: event.target.type == 'checkbox' ? event.target.checked : event.target.value,
+    };
+    var newState = React.addons.update(
+      this.state,
+      {post: newValue}
+    );
+    this.setState(newState);
+  },
+  _handleSubmit: function(event) {
     event.preventDefault();
 
     var title = this.refs.title.getDOMNode().value.trim();
@@ -17,29 +40,35 @@ var PostForm = React.createClass({
     $.ajax({
       data: formData,
       url: this.state.form.action,
-      type: "POST",
+      type: this.props.isNew ? "POST" : "PUT",
       dataType: "json",
       success: function ( data ) {
-        console.log(10);
+
       }.bind(this)
     });
-    console.log(this.refs);
   },
+
   render: function() {
     return (
-      <form ref="form" className="post-form" action={ this.state.form.action } accept-charset="UTF-8" method="post" onSubmit={ this.handleSubmit }>
-        <header className="post-form__header">New Post</header>
+      <form ref="form" className="post-form" action={ this.state.form.action } acceptCharset="UTF-8" method="post" onSubmit={ this._handleSubmit }>
+        <header className="post-form__header">{ this.props.isNew ? 'New Post' : 'Edit Post'}</header>
         <input type="hidden" name={ this.state.form.csrf_param } value={ this.state.form.csrf_token } />
         <div className="post-form__input">        
-          <input ref="title" name="post[title]" placeholder="Post Title" /> 
+          <input ref="title" name="post[title]" placeholder="Post Title" defaultValue={ this.state.post.title } /> 
         </div>
         <div className="post-form__textarea">
-          <textarea ref="description" name="post[description]" placeholder="Post Description" max-length="255" /> 
+          <textarea ref="description" name="post[description]" placeholder="Post Description" rows="3" defaultValue={ this.state.post.description } max-length="255" /> 
         </div>
         <div className="post-form__textarea">
-          <textarea ref="content" name="post[content]" placeholder="Post Content" /> 
+          <textarea ref="content" name="post[content]" placeholder="Post Content" rows="7" defaultValue={ this.state.post.content } /> 
         </div>
-        <button className="post-form__submit" type="submit">Add Post</button>
+        <div className="post-form__checkbox">
+          <label>
+            <input ref="published" name="post[published]" type="hidden" value="" />
+            <input ref="published" name="post[published]" type="checkbox" checked={ this.state.post.published } onChange={ this._handleChange.bind(null, 'published') }/> Publish?
+          </label> 
+        </div>
+        <button className="post-form__submit" type="submit">{ this.props.isNew ? 'Add Post' : 'Update Post'}</button>
       </form>
     );
   }

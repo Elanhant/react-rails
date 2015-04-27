@@ -5,9 +5,7 @@ var PostList = React.createClass({
   render: function() {
     var postNodes = this.state.posts.map(function(post) {
       return (
-        <PostItem title={post.title} description={post.description} created_at={post.created_at} >
-          {post.content}
-        </PostItem> 
+        <PostItem key={post.id} data={post} />
       );
     });
     return (

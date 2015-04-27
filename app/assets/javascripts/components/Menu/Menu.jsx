@@ -1,9 +1,9 @@
 var Menu = React.createClass({
   render: function() {
     var items = JSON.parse(this.props.items);
-    var menuItems = items.map(function(item) {
+    var menuItems = items.map(function(item, index) {
       return (
-        <MenuItem title={ item.title } url={ item.url }/>
+        <MenuItem key={ index } title={ item.title } url={ item.url }/>
       );
     });
     return (
