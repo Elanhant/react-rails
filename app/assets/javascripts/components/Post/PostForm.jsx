@@ -62,13 +62,15 @@ var PostForm = React.createClass({
         <div className="post-form__textarea">
           <textarea ref="content" name="post[content]" placeholder="Post Content" rows="7" defaultValue={ this.state.post.content } /> 
         </div>
-        <div className="post-form__checkbox">
-          <label>
-            <input ref="published" name="post[published]" type="hidden" value="" />
-            <input ref="published" name="post[published]" type="checkbox" checked={ this.state.post.published } onChange={ this._handleChange.bind(null, 'published') }/> Publish?
-          </label> 
-        </div>
-        <button className="post-form__submit" type="submit">{ this.props.isNew ? 'Add Post' : 'Update Post'}</button>
+        <footer className="post-form__footer">
+          <div className="post-form__checkbox">
+            <label>
+              <input ref="published" name="post[published]" type="hidden" value="" />
+              <input ref="published" name="post[published]" type="checkbox" checked={ this.state.post.published } onChange={ this._handleChange.bind(null, 'published') }/> Publish?
+            </label> 
+          </div>
+          <button className="post-form__submit" type="submit">{ this.props.isNew ? 'Add Post' : 'Update Post'}</button>
+        </footer>
       </form>
     );
   }
