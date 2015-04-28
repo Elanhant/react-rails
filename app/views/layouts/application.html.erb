@@ -9,13 +9,15 @@
   <main class="main">
     <div class="wrapper clearfix">
       <aside class="wrapper__aside">
+        <% cache do %>
         <nav>
           <%= react_component('Menu', {:items => @menu_links.to_json}, {:prerender => true}) %>
         </nav>
         <div class="add-post">
           <button class="add-post__button">Add Post</button>
         </div>
-        <%= react_component('InstaWidget', {:url => 'instagram/recent', :useThumb => true}) %>
+        <%= react_component('InstaWidget', {:url => '/instagram/recent', :data => @instagram, :useThumb => true}) %>
+        <% end %>
       </aside>
       <div class="wrapper__content">
         <%= yield %>

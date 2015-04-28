@@ -1,19 +1,19 @@
 var InstaWidget = React.createClass({
   getInitialState: function () {
-      return {
-          data: []
-      };
+    return {
+        data: this.props.data || []
+    };
   },
 
   componentWillMount: function () {  
-    $.ajax({
+    /*$.ajax({
       url: this.props.url,
       type: "GET",
       dataType: "json",
       success: function ( data ) {
         this.setState({data: data});
       }.bind(this)
-    });
+    });*/
   },
 
   render: function () {
