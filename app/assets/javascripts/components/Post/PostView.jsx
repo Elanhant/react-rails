@@ -7,7 +7,7 @@ var PostView = React.createClass({
             { this.props.data.title }
           </a>
         </header>
-        <section className="post__content">{ this.props.data.content }</section>
+        <section className="post__content" dangerouslySetInnerHTML={{__html: this.props.data.content}}></section>
       </article>
     );
   }

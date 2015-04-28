@@ -41,3 +41,6 @@ gem 'spring',        group: :development
 gem 'react-rails', '~> 1.0'
 gem 'es6_module_transpiler-rails'
 gem 'instagram'
+gem 'tinymce-rails'
+gem 'tinymce-rails-imageupload', '~> 4.0.0.beta'
+gem 'paperclip'

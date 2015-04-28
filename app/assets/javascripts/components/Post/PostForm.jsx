@@ -12,7 +12,22 @@ var PostForm = React.createClass({
       {$merge: JSON.parse(this.props.presenter)}
     );
   },
-  
+
+  componentDidMount: function () {
+    tinyMCE.init({
+      selector: '#post-form__content',
+      theme: "modern",
+      plugins: [
+          "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+          "searchreplace wordcount visualblocks visualchars code fullscreen",
+          "insertdatetime media nonbreaking save table contextmenu directionality",
+          "emoticons template paste textcolor colorpicker textpattern uploadimage"
+      ],
+      toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
+      toolbar2: "preview | link uploadimage media | forecolor backcolor",
+      image_advtab: true,
+    });
+  },
 
   _handleChange: function(attr, event) {
     newValue = {};
@@ -30,13 +45,15 @@ var PostForm = React.createClass({
 
     var title = this.refs.title.getDOMNode().value.trim();
     var description = this.refs.description.getDOMNode().value.trim();
-    var content = this.refs.content.getDOMNode().value.trim();
+    // Cannot just get DOMNode, need to use tinyMCE API
+    var content = tinyMCE.EditorManager.get('post-form__content').getContent();
+    this.refs.content.getDOMNode().value = content;
 
     if (!title || !description || !content) {
       return false;
     }
 
-    var formData = $(this.refs.form.getDOMNode()).serialize();
+    var formData = $(this.refs.form.getDOMNode()).serializeArray();
     $.ajax({
       data: formData,
       url: this.state.form.action,
@@ -60,7 +77,7 @@ var PostForm = React.createClass({
           <textarea ref="description" name="post[description]" placeholder="Post Description" rows="3" defaultValue={ this.state.post.description } max-length="255" /> 
         </div>
         <div className="post-form__textarea">
-          <textarea ref="content" name="post[content]" placeholder="Post Content" rows="7" defaultValue={ this.state.post.content } /> 
+          <textarea id="post-form__content" ref="content" name="post[content]" placeholder="Post Content" rows="7" defaultValue={ this.state.post.content } /> 
         </div>
         <footer className="post-form__footer">
           <div className="post-form__checkbox">

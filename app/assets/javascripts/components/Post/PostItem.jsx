@@ -7,7 +7,7 @@ var PostItem = React.createClass({
             { this.props.data.title }
           </a>
         </header>
-        <section className="post__description">{ this.props.data.description }</section>
+        <section className="post__description" dangerouslySetInnerHTML={{__html: this.props.data.description}}></section>
       </article>
     );
   }
