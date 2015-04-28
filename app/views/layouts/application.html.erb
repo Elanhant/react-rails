@@ -15,6 +15,7 @@
         <div class="add-post">
           <button class="add-post__button">Add Post</button>
         </div>
+        <%= react_component('InstaWidget', {:url => 'instagram/recent', :useThumb => true}) %>
       </aside>
       <div class="wrapper__content">
         <%= yield %>

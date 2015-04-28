@@ -40,3 +40,4 @@ gem 'spring',        group: :development
 
 gem 'react-rails', '~> 1.0'
 gem 'es6_module_transpiler-rails'
+gem 'instagram'

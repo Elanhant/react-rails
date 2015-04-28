@@ -1,0 +1,11 @@
+.insta-widget {
+  &__post {
+    img {
+      width: 100%;
+    }
+
+    &_thumb {
+      width: 150px;
+    }
+  }
+}
